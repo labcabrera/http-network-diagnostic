@@ -19,6 +19,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
 
 group = 'com.mapfre.dgtp.gaia.diagnostic'
 version = '0.1.0-SNAPSHOT'
@@ -40,8 +41,14 @@ dependencies {
   compile('org.projectlombok:lombok:1.16.18')
   compile('io.springfox:springfox-swagger2:2.7.0')
   compile('io.springfox:springfox-swagger-ui:2.7.0')
+  
+  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
  
   testCompile('junit:junit:4.12')
   testCompile('org.springframework.boot:spring-boot-starter-test')
   testCompile('org.springframework.security:spring-security-test')
+}
+
+war {
+  baseName = 'http-network-diagnostic'
 }

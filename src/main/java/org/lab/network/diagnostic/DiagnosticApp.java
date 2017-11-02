@@ -2,6 +2,8 @@ package org.lab.network.diagnostic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import springfox.documentation.builders.PathSelectors;
@@ -12,10 +14,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class DiagnosticApp {
+public class DiagnosticApp extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DiagnosticApp.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(DiagnosticApp.class);
 	}
 
 	@Bean
