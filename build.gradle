@@ -1,14 +1,9 @@
 buildscript {
   ext {
     springBootVersion = '2.0.0.RELEASE'
-    useProxy = true;
   }
   repositories {
-    if(useProxy) {
-      maven { url "http://nexus:8080/nexus/content/groups/public/" }
-    } else {    
-      mavenCentral()
-    }
+    mavenCentral()
   }
   dependencies {
     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -25,9 +20,7 @@ version = version
 sourceCompatibility = 1.8
 
 repositories {
-  if(useProxy) {
-    maven { url "http://nexus:8080/nexus/content/groups/public/" }
-  } else {
+  repositories {
     mavenCentral()
   }
 }
