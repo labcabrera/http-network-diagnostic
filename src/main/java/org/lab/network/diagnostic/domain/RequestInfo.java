@@ -9,31 +9,31 @@ import lombok.Data;
 public class RequestInfo {
 
 	@ApiModelProperty(value = "Target host")
-	String targetHost;
+	private String targetHost;
 
 	@ApiModelProperty(value = "Target port", example = "80")
-	Integer targetPort = 80;
+	private Integer targetPort = 80;
 
 	@ApiModelProperty(value = "Target schema", example = "http")
-	String targetSchema = "http";
+	private String targetSchema = "http";
 
 	@ApiModelProperty(value = "URI", example = "/")
-	String uri = "/";
+	private String uri = "/";
 
 	@ApiModelProperty(value = "Unsafe SSL validation", example = "false")
-	Boolean unsafeSsl = false;
+	private Boolean unsafeSsl = false;
 
 	@ApiModelProperty(value = "Proxy host", required = false)
-	String proxyHost;
+	private String proxyHost;
 
 	@ApiModelProperty(value = "Proxy port", required = false)
-	Integer proxyPort;
+	private Integer proxyPort;
 
 	@ApiModelProperty(value = "Proxy username", required = false)
-	String proxyUsername;
+	private String proxyUsername;
 
 	@ApiModelProperty(value = "Proxy password", required = false)
-	String proxyPassword;
+	private String proxyPassword;
 
 	public boolean isProxyAutenticationEnabled() {
 		return proxyHost != null && proxyPort != null && proxyUsername != null && proxyPassword != null;

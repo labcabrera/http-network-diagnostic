@@ -3,7 +3,7 @@ package org.lab.network.diagnostic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import springfox.documentation.builders.PathSelectors;
@@ -26,11 +26,11 @@ public class DiagnosticApp extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public Docket docket() { //@formatter:off
+	public Docket docket() { // @formatter:off
 		return new Docket(DocumentationType.SWAGGER_2)
 			.select()
-				.apis(RequestHandlerSelectors.basePackage("org.lab.network"))
-				.paths(PathSelectors.any())
-				.build();
-	} //@formatter:on
+			.apis(RequestHandlerSelectors.basePackage("org.lab.network"))
+			.paths(PathSelectors.any())
+			.build();
+	} // @formatter:on
 }
