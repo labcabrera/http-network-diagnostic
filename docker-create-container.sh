@@ -1,8 +1,9 @@
 #!/bin/bash
 
-docker run -i \
+docker run \
+  --interactive \
+	--tty \
   --name http-network-diagnostic \
-	-h http-network-diagnostic \
-  -p 8080:8080 \
-	-t \
-	labcabrera/http-network-diagnostic:1.0.0
+  --hostname http-network-diagnostic \
+  --publish 8080:8080 \
+  labcabrera/http-network-diagnostic:1.0.0
