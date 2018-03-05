@@ -22,7 +22,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
 group = 'com.mapfre.dgtp.gaia.diagnostic'
-version = '0.1.0-SNAPSHOT'
+version = version
 sourceCompatibility = 1.8
 
 repositories {
