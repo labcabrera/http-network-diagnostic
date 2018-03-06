@@ -97,6 +97,17 @@ $ curl --insecure "https://secure-training.apps.openshiftexamplehost/api/date"
 "2018-03-06T15:01:48.337+0000"
 ----
 
+== Actualizando la aplicación
+
+Por fortuna al actualizar la aplicación esta configuración se mantiene, de modo que no hay que volver a estar toqueteando a mano
+las configuraciones anteriores.
+
+Para ello iremos a _Applications >> Deployments_, seleccionaremos el que deseamos actualizar y pulsaremos la opcón _Edit_. Una vez
+ahí simplemente desmarcaremos la opcion _Deploy images from an image stream tag_ y copiaremos la imagen que queremos desplegar, por
+ejemplo _labcabrera/http-network-diagnostic:1.0.3_.
+
+Guardamos y esperamos a que se refresque nuestro pod. 
+
 == Sobre la aplicación
 
 La aplicación web es muy sencilla. Simplemente tiene un controlador que comprueba si un determinado host es accesible utilizando la
