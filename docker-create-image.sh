@@ -6,7 +6,7 @@ function prop {
 
 APP_VERSION=$(prop 'version')
 
-echo "Building local image $APP_VERSION"
+echo "Building image $APP_VERSION"
 
 docker build \
   -f Dockerfile \
