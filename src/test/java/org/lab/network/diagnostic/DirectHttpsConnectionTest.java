@@ -5,6 +5,7 @@ import java.util.Map;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.lab.network.diagnostic.domain.RequestInfo;
+import org.lab.network.diagnostic.domain.RequestInfo.Scheme;
 
 public class DirectHttpsConnectionTest {
 
@@ -17,7 +18,7 @@ public class DirectHttpsConnectionTest {
 
 		request.setTargetHost("wcorreo10cpd2.mapfre.net");
 		request.setTargetPort(443);
-		request.setTargetSchema("https");
+		request.setTargetSchema(Scheme.https);
 		request.setUri("/owa/");
 		request.setUnsafeSsl(true);
 

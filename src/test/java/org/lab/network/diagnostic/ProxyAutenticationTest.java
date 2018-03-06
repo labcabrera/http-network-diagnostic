@@ -5,6 +5,7 @@ import java.util.Map;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.lab.network.diagnostic.domain.RequestInfo;
+import org.lab.network.diagnostic.domain.RequestInfo.Scheme;
 
 public class ProxyAutenticationTest {
 
@@ -17,7 +18,7 @@ public class ProxyAutenticationTest {
 
 		request.setTargetHost("www.google.com");
 		request.setTargetPort(443);
-		request.setTargetSchema("https");
+		request.setTargetSchema(Scheme.https);
 		request.setUri("/");
 		request.setUnsafeSsl(true);
 

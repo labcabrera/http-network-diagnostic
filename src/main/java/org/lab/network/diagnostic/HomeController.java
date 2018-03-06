@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
 	@GetMapping("/")
-	public ModelAndView redirectWithUsingRedirectPrefix(ModelMap model) {
+	public ModelAndView home(ModelMap model) {
 		return new ModelAndView("redirect:/swagger-ui.html", model);
 	}
 }

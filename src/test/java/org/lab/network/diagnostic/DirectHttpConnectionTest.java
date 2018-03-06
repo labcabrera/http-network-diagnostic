@@ -5,6 +5,7 @@ import java.util.Map;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.lab.network.diagnostic.domain.RequestInfo;
+import org.lab.network.diagnostic.domain.RequestInfo.Scheme;
 
 public class DirectHttpConnectionTest {
 
@@ -17,7 +18,7 @@ public class DirectHttpConnectionTest {
 
 		request.setTargetHost("les000900201");
 		request.setTargetPort(8080);
-		request.setTargetSchema("http");
+		request.setTargetSchema(Scheme.http);
 		request.setUri("/");
 		request.setUnsafeSsl(false);
 

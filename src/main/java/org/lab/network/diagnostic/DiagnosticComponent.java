@@ -50,7 +50,11 @@ public class DiagnosticComponent {
 
 		try {
 
-			HttpHost target = new HttpHost(request.getTargetHost(), request.getTargetPort(), request.getTargetSchema());
+			HttpHost target = new HttpHost( //@formatter:off
+				request.getTargetHost(),
+				request.getTargetPort(),
+				request.getTargetSchema().name()); //@formatter:on
+
 			HttpHost proxy = null;
 
 			if (request.getProxyHost() != null) {
@@ -82,7 +86,7 @@ public class DiagnosticComponent {
 	}
 
 	private CloseableHttpClient buildClient(RequestInfo request)
-			throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+		throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 
 		if (request.isProxyAutenticationEnabled()) {
 			CredentialsProvider credsProvider = new BasicCredentialsProvider();
