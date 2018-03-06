@@ -1,5 +1,97 @@
 = Http Network Diagnostic application
 
-Sample application for testing Openshift
+Aplicación de ejemplo para realizar pruebas de despliegues en OpenShift.
 
+== Construyendo el proyecto
+
+En primer lugar realizaremos una build a partir de la release que queramos (las anteriores a la 1.0.2 son inválidas).
+
+El la carpeta del proyecto hay tres scripts para borrar, generar la imagen y el contenedor.
+
+La imagen también puede obtenerse desde:
+
+https://hub.docker.com/r/labcabrera/http-network-diagnostic/tags/
+
+== Desplegando en OpenShift
+
+Ahora vienen las trampas.
+
+El primer problema es que nuestro Dockerfile está basado en una imagen de openjdk:
+
+[source]
+----
+FROM openjdk:8u141-jdk
+----
+
+Y esto tiene el problema de que *utiliza el usuario _root_ y esto no está permitido* por las políticas de seguridad por defecto.
+
+Para ello tendremos que crear el proyecto de la siguiente manera:
+
+[source]
+----
+oc new-project myproject
+oc project myproject
+oc new-app labcabrera/http-network-diagnostic:1.0.2
+oadm policy add-scc-to-user anyuid -z default
+oc deploy image --latest
+oc get pods
+----
+
+Donde hemos cambiado el *contexto de seguridad a nivel del proyecto* para permitir cualquier usuario.
+
+Una vez generado el deployment veremos que no ha generado correctamente el servicio, de modo que tendremos que crearlo desde
+la consola (no he visto la opción de hacerlo desde la interface web):
+
+[source]
+----
+oc expose dc some-name --name=some-name-service
+----
+
+Una vez creado tendremos que asociarle el puerto. Para ello desde la opción _Applications >> Services_ seleccionaremos el servicio
+que acabamos de crear y editaremos el YAML añadiendo los puertos que queremos exponer:
+
+[source,yml]
+----
+spec:
+  clusterIP: 172.30.166.77
+  ports:
+    - name: 9009-tcp
+      port: 9009
+      protocol: TCP
+      targetPort: 9009
+----
+
+Una vez modificado nuestro servicio tendremos que crear una ruta, esto podemos hacerlo desde la web:
+
+* _name_: el nombre que queramos darle a nuestro servicio
+* _hostname_: sin rellenar
+* _path_: /
+* _service_: el servicio que hemos creado anteriormente. Si aparece un warning en esta casilla es porque en el fichero anterior no 
+  hemos establecido el nombre del puerto.
+
+En nuestro ejemplo la aplicación funciona utilizando HTTPS de modo que tenemos que marcar la opción _Secure route_, escogiendo el
+valor _Passthrough_ para la opción _TLS Termination_.
+
+También marcamos que el tráfico HTTP se redirija al puerto seguro.
+
+== Accediendo al podemos
+
+Si tenemos problemas y no sabemos que está haciendo nuestro pod podemos acceder a la consola de este desde la web a trabés de la
+opción _Applications >> Pods_. Seleccionaremos nuestro pod y veremos una pestaña llamada _Terminal_.
+
+Una vez accedemos podemos comprobar si la aplicación está correctamente levantada a través del comando (la imagen de openjdk apenas
+tiene nada instalado):
+
+[source]
+----
 ss -nptl
+----
+
+Y con eso tenemos nuestra app desplegada:
+
+[source]
+----
+$ curl --insecure "https://secure-training.apps.openshiftexamplehost/api/diagnostic/date"
+"2018-03-06T15:01:48.337+0000"
+----
+
