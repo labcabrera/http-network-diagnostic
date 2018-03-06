@@ -1,5 +1,7 @@
 = Http Network Diagnostic application
 
+image:https://travis-ci.org/labcabrera/http-network-diagnostic.svg?branch=master["Build Status", link="https://travis-ci.org/labcabrera/http-network-diagnostic"]
+
 Aplicación de ejemplo para realizar pruebas de despliegues en OpenShift.
 
 == Construyendo el proyecto
