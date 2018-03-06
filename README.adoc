@@ -93,7 +93,81 @@ Y con eso tenemos nuestra app desplegada:
 
 [source]
 ----
-$ curl --insecure "https://secure-training.apps.openshiftexamplehost/api/diagnostic/date"
+$ curl --insecure "https://secure-training.apps.openshiftexamplehost/api/date"
 "2018-03-06T15:01:48.337+0000"
 ----
+
+== Sobre la aplicación
+
+La aplicación web es muy sencilla. Simplemente tiene un controlador que comprueba si un determinado host es accesible utilizando la
+api de HttpClient:
+
+[source,java]
+----
+public Map<String, Object> check(RequestInfo request) {
+    Map<String, Object> result = new LinkedHashMap<>();
+
+    CloseableHttpClient client;
+    try {
+      client = buildClient(request);
+    }
+    catch (Exception ex) {
+      log.error("Client build error", ex);
+      result.put("httpClientBuildError", ex.getMessage());
+      return result;
+    }
+
+    try {
+
+      HttpHost target = new HttpHost( //@formatter:off
+        request.getTargetHost(),
+        request.getTargetPort(),
+        request.getTargetSchema().name()); //@formatter:on
+
+      HttpHost proxy = null;
+
+      if (request.getProxyHost() != null) {
+        proxy = new HttpHost(request.getProxyHost(), request.getProxyPort());
+      }
+
+      RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
+      HttpGet httpget = new HttpGet(request.getUri());
+      httpget.setConfig(config);
+
+      CloseableHttpResponse response = client.execute(target, httpget);
+      result.put("statusLine", response.getStatusLine().toString());
+
+      try {
+        result.put("content", readContent(response.getEntity().getContent()));
+      }
+      catch (Exception ex) {
+        result.put("errorReadingContent", ex.getMessage());
+      }
+
+    }
+    catch (Exception ex) {
+      log.error("HTTP error", ex);
+      result.put("exception", ex.getClass().getName());
+      result.put("exceptionMessage", ex.getMessage());
+    }
+
+    return result;
+  }
+----
+
+Este servicio se expone vía SSL a partir de la configuración de Spring Boot:
+
+[source,yml]
+----
+server:
+  port: ${APP_PORT:9009}
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:certificate.p12
+    key-store-password: changeit
+    key-password: changeit
+----
+
+Podemos crear el certificado a partir del script _create-self-signed-cert.sh_ del repositorio.
+
 
