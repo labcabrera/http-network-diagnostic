@@ -6,7 +6,7 @@ management:
     enabled: false
     
 server:
-  port: 8443
+  port: ${APP_PORT:9009}
   ssl:
     key-store-type: PKCS12
     key-store: classpath:certificate.p12
