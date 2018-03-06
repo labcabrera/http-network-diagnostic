@@ -27,10 +27,8 @@ public class DiagnosticApp extends SpringBootServletInitializer {
 
 	@Bean
 	public Docket docket() { // @formatter:off
-		return new Docket(DocumentationType.SWAGGER_2)
-			.select()
-			.apis(RequestHandlerSelectors.basePackage("org.lab.network"))
-			.paths(PathSelectors.any())
-			.build();
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("org.lab.network")).paths(PathSelectors.any()).build();
 	} // @formatter:on
+
 }
