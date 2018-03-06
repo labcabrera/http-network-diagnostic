@@ -76,7 +76,7 @@ valor _Passthrough_ para la opción _TLS Termination_.
 
 También marcamos que el tráfico HTTP se redirija al puerto seguro.
 
-== Accediendo al podemos
+== Accediendo al pod
 
 Si tenemos problemas y no sabemos que está haciendo nuestro pod podemos acceder a la consola de este desde la web a trabés de la
 opción _Applications >> Pods_. Seleccionaremos nuestro pod y veremos una pestaña llamada _Terminal_.
