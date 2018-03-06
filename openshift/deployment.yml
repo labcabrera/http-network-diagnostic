@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2018-03-06T12:25:33Z'
+  generation: 9
+  labels:
+    app: http-network-diagnostic
+  name: http-network-diagnostic
+  namespace: training
+  resourceVersion: '2469262'
+  selfLink: /oapi/v1/namespaces/training/deploymentconfigs/http-network-diagnostic
+  uid: 77743463-2139-11e8-a9ec-0050569f494a
+spec:
+  replicas: 1
+  selector:
+    app: http-network-diagnostic
+    deploymentconfig: http-network-diagnostic
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: http-network-diagnostic
+        deploymentconfig: http-network-diagnostic
+    spec:
+      containers:
+        - image: >-
+            labcabrera/http-network-diagnostic@sha256:921fb8c3d1fdbf88252b7b513a4ed6eb1e77805b96aeef6503e0085a6e1cbbe4
+          imagePullPolicy: IfNotPresent
+          name: http-network-diagnostic
+          ports:
+            - containerPort: 9009
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - http-network-diagnostic
+        from:
+          kind: ImageStreamTag
+          name: 'http-network-diagnostic:1.0.2-SNAPSHOT'
+          namespace: training
+        lastTriggeredImage: >-
+          labcabrera/http-network-diagnostic@sha256:921fb8c3d1fdbf88252b7b513a4ed6eb1e77805b96aeef6503e0085a6e1cbbe4
+      type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2018-03-06T12:27:01Z'
+      lastUpdateTime: '2018-03-06T12:27:01Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2018-03-06T14:21:24Z'
+      lastUpdateTime: '2018-03-06T14:21:26Z'
+      message: >-
+        replication controller "http-network-diagnostic-4" successfully rolled
+        out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - imageTrigger:
+          from:
+            kind: ImageStreamTag
+            name: 'http-network-diagnostic:1.0.2-SNAPSHOT'
+            namespace: training
+        type: ImageChange
+    message: image change
+  latestVersion: 4
+  observedGeneration: 9
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

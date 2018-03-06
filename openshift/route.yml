@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: 'true'
+  creationTimestamp: '2018-03-06T13:02:26Z'
+  name: secure
+  namespace: training
+  resourceVersion: '2469305'
+  selfLink: /oapi/v1/namespaces/training/routes/secure
+  uid: 9ea66b4a-213e-11e8-a9ec-0050569f494a
+spec:
+  host: secure-training.apps.les000a103050.es.mapfre.net
+  port:
+    targetPort: 9009-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: passthrough
+  to:
+    kind: Service
+    name: http-network-diagnostic
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+        - lastTransitionTime: '2018-03-06T13:02:27Z'
+          status: 'True'
+          type: Admitted
+      host: secure-training.apps.les000a103050.es.mapfre.net
+      routerName: router
+      wildcardPolicy: None
