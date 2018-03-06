@@ -4,7 +4,7 @@ FROM openjdk:8u141-jdk
 MAINTAINER Luis Cabrera <lab.cabrera@gmail.com>
 
 ENV APP_NAME http-network-diagnostic
-ENV APP_VERSION 1.0.2
+ENV APP_VERSION 1.0.3-SNAPSHOT
 ENV JAVA_OPTS=""
 
 ADD ./build/libs/*.jar /opt/${APP_NAME}/
