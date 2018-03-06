@@ -1,5 +1,9 @@
 #!/bin/bash
 
+rm ./src/main/resources/*.p12
+rm ./src/main/resources/*.pem
+rm ./src/main/resources/*.p12
+
 openssl \
   req \
   -newkey rsa:2048 \

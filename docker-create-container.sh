@@ -8,8 +8,8 @@ APP_VERSION=$(prop 'version')
 
 docker run \
   --interactive \
-	--tty \
+  --tty \
   --name http-network-diagnostic \
   --hostname http-network-diagnostic \
-  --publish 8080:8080 \
+  --publish 8443:8443 \
   labcabrera/http-network-diagnostic:${APP_VERSION}

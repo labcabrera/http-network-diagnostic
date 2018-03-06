@@ -6,6 +6,8 @@ function prop {
 
 APP_VERSION=$(prop 'version')
 
+echo "Building local image $APP_VERSION"
+
 docker build \
   -f Dockerfile \
   -t labcabrera/http-network-diagnostic:${APP_VERSION} .
