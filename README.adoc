@@ -1,3 +1,5 @@
 = Http Network Diagnostic application
 
 Sample application for testing Openshift
+
+ss -nptl

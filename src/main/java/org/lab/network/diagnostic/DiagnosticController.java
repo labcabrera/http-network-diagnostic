@@ -1,9 +1,12 @@
 package org.lab.network.diagnostic;
 
+import java.util.Date;
+import java.util.Calendar;
 import java.util.Map;
 
 import org.lab.network.diagnostic.domain.RequestInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +21,15 @@ public class DiagnosticController {
 	@Autowired
 	private DiagnosticComponent component;
 
+	@GetMapping(value = "/date")
+	@ApiOperation(value = "Date controller")
+	public Date ping() {
+		return Calendar.getInstance().getTime();
+	}
+
 	@PostMapping(value = "/ping")
 	@ApiOperation(value = "Check HTTP connection")
-	public Map<String, Object> test(@ApiParam(value = "Request info", required = true) RequestInfo request) {
+	public Map<String, Object> ping(@ApiParam(value = "Request info", required = true) RequestInfo request) {
 		return component.check(request);
 	}
 
