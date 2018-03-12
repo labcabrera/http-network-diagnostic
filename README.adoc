@@ -41,6 +41,16 @@ oc get pods
 
 Donde hemos cambiado el *contexto de seguridad a nivel del proyecto* para permitir cualquier usuario.
 
+Posteriormente tendremos que asignar los puertos editando directamente el YAML del deployment:
+
+----
+  ports:
+    - containerPort: 9043
+      protocol: TCP
+    - containerPort: 9443
+      protocol: TCP
+----
+
 Una vez generado el deployment veremos que no ha generado correctamente el servicio, de modo que tendremos que crearlo desde
 la consola (no he visto la opción de hacerlo desde la interface web):
 
