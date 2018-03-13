@@ -43,6 +43,7 @@ Donde hemos cambiado el *contexto de seguridad a nivel del proyecto* para permit
 
 Posteriormente tendremos que asignar los puertos editando directamente el YAML del deployment (se puede ver un ejemplo en el directorio openshift/deployment.xml):
 
+[source,yml]
 ----
 ports:
   - containerPort: 9043
